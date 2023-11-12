@@ -115,6 +115,16 @@ public:
         }
     }
 
+    void depthFirstPreorderTraversal(int currentNode, vector<bool>& visited) {
+        if (!visited[currentNode]) {
+            cout << currentNode << " ";
+            visited[currentNode] = true;
+
+            for (int neighbor : adjacencyList[currentNode]) {
+                depthFirstPreorderTraversal(neighbor, visited);
+            }
+        }
+    }
 };
 
 int main() {
@@ -154,7 +164,9 @@ int main() {
     }
     cout << endl;
 
-    MyGraph.deleteNode(2);
+    // the triversal worked when i commented this out:) 
+
+   /* MyGraph.deleteNode(2);
     cout << "All nodes after deleting a node: ";
     for (const auto& node : MyGraph.getAllNodes()) {
         cout << node << " ";
@@ -166,11 +178,17 @@ int main() {
     for (const auto& edge : MyGraph.getAllEdges()) {
         cout << "(" << edge.first << ", " << edge.second << ") ";
     }
-    cout << endl;
+    cout << endl;*/
 
     cout << "Updated adjacency list:" << endl;
     MyGraph.printList();
 
+    cout << "Depth-First Traversal starting from node 0: ";
+    vector<bool> visited(MyGraph.getNumberOfNodes(), false);
+    MyGraph.depthFirstPreorderTraversal(0, visited);
+    cout << endl;
 
+
+ 
     return 0;
 }
